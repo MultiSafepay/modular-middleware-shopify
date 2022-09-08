@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace ModularShopify\ModularShopify\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ModularShopifyCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'modular-middleware-shopify';
 
     public $description = 'My command';
 
