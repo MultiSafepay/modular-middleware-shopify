@@ -15,9 +15,7 @@ final class LoginShopifyController extends Controller
     public function redirectToProvider(Request $request)
     {
         Log::info('OAuth received request', ['event' => 'redirect_provider']);
-        $clientKey = 'SHOPIFY_' . strtoupper($request->query('gateway')) . '_KEY';
-        $clientSecret = 'SHOPIFY_' . strtoupper($request->query('gateway')) . '_SECRET';
-        $config = new Config(env($clientKey), env($clientSecret), route('shopify.callback') . '?gateway=' . $request->query('gateway'));
+        $config = new Config(config('shopify.' . $request->get('gateway') . '.key'), config('shopify.' . $request->get('gateway') . '.secret'), route('shopify.callback') . '?gateway=' . $request->query('gateway'));
 
         return Socialite::driver('shopify')
             ->setConfig($config)
@@ -40,17 +38,12 @@ final class LoginShopifyController extends Controller
     {
         Log::info('Handle Callback', ['event' => 'handle_callback']);
 
-        $clientKey = 'SHOPIFY_' . strtoupper($request->query('gateway')) . '_KEY';
-        $clientSecret = 'SHOPIFY_' . strtoupper($request->query('gateway')) . '_SECRET';
-
         if (!$request->getSession()->has('state')) {
             Log::info('Handle Callback, could not find state', ['event' => 'handle_callback_no_state']);
             $shop = Shopify::retrieveByUrl($request->get('shop'));
             Log::info('Shop: ', [$shop]);
         } else {
-            Log::info('SHOOPIKEYS', [env($clientKey), env($clientSecret)]);
-
-            $config = new Config(env($clientKey), env($clientSecret), route('shopify.callback') . '?gateway=' . $request->query('gateway'));
+            $config = new Config(config('shopify.' . $request->get('gateway') . '.key'), config('shopify.' . $request->get('gateway') . '.secret'), route('shopify.callback') . '?gateway=' . $request->query('gateway'));
 
             $shopifyUser = Socialite::driver('shopify')
                 ->setConfig($config)
@@ -87,7 +80,7 @@ final class LoginShopifyController extends Controller
             'host' => $request->get('host'),
             'shop' => $request->get('shop'),
             'gateway' => $request->get('gateway'),
-            'apiKey' => env($clientKey)
+            'apiKey' => config('shopify.' . $request->get('gateway') . '.key')
         ]);
     }
 }
