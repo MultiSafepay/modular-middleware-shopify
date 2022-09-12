@@ -2,14 +2,12 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use ModularMultiSafepay\ModularMiddlewareMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
-use App\Http\Clients\MultisafepayClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RedirectRequest;
 use App\Models\Shopify;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class RedirectController extends Controller

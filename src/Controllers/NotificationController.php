@@ -2,9 +2,9 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use ModularMultiSafepay\ModularMiddlewareMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use App\Http\Controllers\Controller;
-use App\Jobs\Shopify\NotificationJob;
+use ModularShopify\ModularShopify\Jobs\NotificationJob;
 use App\Models\Shopify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +18,7 @@ class NotificationController extends Controller
 
         if ($request->status !== 'completed') {
             NotificationJob::dispatch($gid, $shop, $order)
-                ->onQueue('notifications-low')
+                ->onQueue('shopify-low')
                 ->delay(now()->addHours(2));
 
             Log::info('Dispatching notification for ' . $gid,
@@ -31,7 +31,7 @@ class NotificationController extends Controller
         }
 
         NotificationJob::dispatch($gid, $shop, $order)
-            ->onQueue('notifications-high');
+            ->onQueue('shopify-high');
         Log::info('Dispatching completed notification for ' . $gid,
             [
                 'event' => 'notification_dispatch',

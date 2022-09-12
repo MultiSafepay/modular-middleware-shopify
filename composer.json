@@ -59,5 +59,11 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "url": "git@github.com:MultiSafepay/modular-middleware-multisafepay.git",
+            "type": "git"
+        }
+    ]
 }

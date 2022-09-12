@@ -2,10 +2,9 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use ModularMultiSafepay\ModularMiddlewareMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
-
 use App\Models\Shopify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

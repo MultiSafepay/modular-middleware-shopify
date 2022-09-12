@@ -4,7 +4,7 @@ namespace ModularShopify\ModularShopify\Controllers;
 
 use ModularShopify\ModularShopify\API\Refund;
 use App\Http\Controllers\Controller;
-use App\Jobs\Shopify\CreateRefundJob;
+use ModularShopify\ModularShopify\Jobs\CreateRefundJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 

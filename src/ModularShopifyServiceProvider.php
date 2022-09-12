@@ -19,7 +19,7 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
             'horizon.defaults.supervisor-shopify',
             [
                 'connection' => 'redis',
-                'queue' => ['default','notifications-high','notifications-low'],
+                'queue' => ['default','shopify-high','shopify-low'],
                 'balance' => 'auto',
                 'maxProcesses' => 2,
                 'maxTime' => 0,
@@ -35,6 +35,15 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
+
+        $this->publishes([
+            __DIR__.'/../config/shopify.php' => config_path('shopify.php'),
+            __DIR__.'/../resources/views/preference.blade.php' => resource_path('views/shopify/preference.blade.php'),
+            __DIR__.'/../resources/views/admin/shop.blade.php' => resource_path('views/shopify/admin/shop.blade.php'),
+            __DIR__.'/../resources/views/emails/gdpr/customers-data-requested.blade.php' => resource_path('views/shopify/emails/gdpr/customers-data-requested.blade.php'),
+            __DIR__.'/../resources/views/emails/gdpr/customers-redacted.blade.php' => resource_path('views/shopify/emails/gdpr/customers-redacted.blade.php'),
+            __DIR__.'/../resources/views/emails/gdpr/shop-redacted.blade.php' => resource_path('views/shopify/emails/gdpr/shop-redacted.blade.php'),
+        ], 'modular-middleware');
         /*
          * This class is a Package Service Provider
          *
@@ -42,7 +51,6 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('modular-middleware-shopify')
-            ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_modular-middleware-shopify_table')
             ->hasCommand(ModularShopifyCommand::class);

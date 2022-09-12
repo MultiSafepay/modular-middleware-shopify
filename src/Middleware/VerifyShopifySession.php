@@ -13,12 +13,12 @@ class VerifyShopifySession
     public function handle(Request $request, Closure $next)
     {
         $jwt = $request->bearerToken();
-        $config = 'SHOPIFY_' . strtoupper($request->get('gateway')) . '_SECRET';
-        $key = env($config);
-
+        $key = config('shopify.' . $request->get('gateway') . '.secret');
         Log::debug('VerifyShopifySession', [
             'jwt' => $jwt,
-            'key' => $key
+            'key' => $key,
+            'gateway' => $request->get('gateway'),
+            'config' => config()
         ]);
 
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));

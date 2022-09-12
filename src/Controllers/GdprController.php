@@ -3,7 +3,7 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use App\Jobs\Shopify\SendMailJob;
+use ModularShopify\ModularShopify\Jobs\SendMailJob;
 use App\Mail\Shopify\GDPRMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
