@@ -2,15 +2,34 @@
 
 namespace ModularShopify\ModularShopify;
 
+use Illuminate\Support\Facades\Config;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ModularShopify\ModularShopify\Commands\ModularShopifyCommand;
+use function Sodium\add;
 
 class ModularShopifyServiceProvider extends PackageServiceProvider
 {
     public function boot(): void
     {
         $this->loadRoutesFrom(base_path('routes/shopify.php'));
+
+        Config::set(
+            'horizon.defaults.supervisor-shopify',
+            [
+                'connection' => 'redis',
+                'queue' => ['default','notifications-high','notifications-low'],
+                'balance' => 'auto',
+                'maxProcesses' => 2,
+                'maxTime' => 0,
+                'maxJobs' => 0,
+                'memory' => 128,
+                'tries' => 0,
+                'timeout' => 60,
+                'nice' => 0,
+            ]
+        );
+
     }
 
     public function configurePackage(Package $package): void
