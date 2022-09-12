@@ -8,7 +8,7 @@ use ModularMultiSafepay\ModularMultiSafepay\Order\Order;
 use ModularShopify\ModularShopify\API\Request\Payment;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
-use App\Models\Shopify;
+use ModularShopify\ModularShopify\Models\Shopify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;

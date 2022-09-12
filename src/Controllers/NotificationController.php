@@ -5,7 +5,7 @@ namespace ModularShopify\ModularShopify\Controllers;
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use App\Http\Controllers\Controller;
 use ModularShopify\ModularShopify\Jobs\NotificationJob;
-use App\Models\Shopify;
+use ModularShopify\ModularShopify\Models\Shopify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 

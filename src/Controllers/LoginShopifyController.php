@@ -3,7 +3,7 @@
 namespace ModularShopify\ModularShopify\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Shopify;
+use ModularShopify\ModularShopify\Models\Shopify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;

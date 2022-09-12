@@ -11,7 +11,7 @@ use ModularShopify\ModularShopify\API\Calls\PaymentSessionPending;
 use ModularShopify\ModularShopify\API\Calls\RefundSessionReject;
 use ModularShopify\ModularShopify\API\Calls\RefundSessionResolve;
 use ModularShopify\ModularShopify\API\Calls\WebhookSubscriptionCreate;
-use App\Models\Shopify;
+use ModularShopify\ModularShopify\Models\Shopify;
 
 final class ShopifyGraphQL
 {

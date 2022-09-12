@@ -6,7 +6,7 @@ namespace ModularShopify\ModularShopify\Jobs;
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\Refund;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
-use App\Models\Shopify;
+use ModularMultiSafepay\ModularMultiSafepay\Models\Shopify;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

@@ -2,10 +2,14 @@
 
 namespace ModularShopify\ModularShopify;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
+use ModularShopify\ModularShopify\Models\Shopify;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ModularShopify\ModularShopify\Commands\ModularShopifyCommand;
+
 use function Sodium\add;
 
 class ModularShopifyServiceProvider extends PackageServiceProvider
@@ -30,7 +34,6 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
                 'nice' => 0,
             ]
         );
-
     }
 
     public function configurePackage(Package $package): void

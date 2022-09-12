@@ -4,8 +4,8 @@
 namespace ModularShopify\ModularShopify\API;
 
 
-use App\Models\Shopify;
-use App\Models\ShopifyAccessTokens;
+use ModularShopify\ModularShopify\Models\Shopify;
+use ModularShopify\ModularShopify\Models\ShopifyAccessTokens;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
