@@ -37,7 +37,11 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
     {
 
         $this->publishes([
+            //Config
             __DIR__.'/../config/shopify.php' => config_path('shopify.php'),
+            //Migrations
+            __DIR__.'/../database/migrations/create_modular_middleware_shopify_table.php.stub' => database_path('migrations/2022_01_31_101358_create_modular_middleware_shopify_table.php'),
+            //Blades
             __DIR__.'/../resources/views/preference.blade.php' => resource_path('views/shopify/preference.blade.php'),
             __DIR__.'/../resources/views/admin/shop.blade.php' => resource_path('views/shopify/admin/shop.blade.php'),
             __DIR__.'/../resources/views/emails/gdpr/customers-data-requested.blade.php' => resource_path('views/shopify/emails/gdpr/customers-data-requested.blade.php'),
