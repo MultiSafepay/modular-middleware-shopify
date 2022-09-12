@@ -2,7 +2,7 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use App\Data\Multisafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMiddlewareMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
 

@@ -2,7 +2,7 @@
 
 namespace ModularShopify\ModularShopify\Controllers;
 
-use App\Data\Multisafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMiddlewareMultiSafepay\MultiSafepay;
 use App\Http\Controllers\Controller;
 use App\Jobs\Shopify\NotificationJob;
 use App\Models\Shopify;

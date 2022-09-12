@@ -10,9 +10,10 @@ use function Sodium\add;
 
 class ModularShopifyServiceProvider extends PackageServiceProvider
 {
+
     public function boot(): void
     {
-        $this->loadRoutesFrom(base_path('routes/shopify.php'));
+        $this->loadRoutesFrom(__DIR__ . '/routes/shopify.php');
 
         Config::set(
             'horizon.defaults.supervisor-shopify',

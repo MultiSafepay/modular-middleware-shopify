@@ -4,9 +4,9 @@
 namespace ModularShopify\ModularShopify\API\Request;
 
 
-use App\Data\Multisafepay\Order\CustomerInfo;
-use App\Data\Multisafepay\Order\DeliveryInfo;
-use App\Data\Multisafepay\Order\PaymentOptions;
+use ModularMultiSafepay\ModularMiddlewareMultiSafepay\Order\CustomerInfo;
+use ModularMultiSafepay\ModularMiddlewareMultiSafepay\Order\DeliveryInfo;
+use ModularMultiSafepay\ModularMiddlewareMultiSafepay\Order\PaymentOptions;
 use Illuminate\Support\Facades\URL;
 
 final class Payment
