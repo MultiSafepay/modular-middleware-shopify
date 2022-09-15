@@ -14,7 +14,7 @@ SHOPIFY_{{GATEWAYID}}_SECRET=SECRET
 You can install the package via composer:
 
 ```bash
-composer require modular-shopify/modular-middleware-shopify
+composer require multisafepay/modular-middleware-shopify
 ```
 
 You can publish and run the migrations with:
