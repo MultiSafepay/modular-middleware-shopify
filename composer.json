@@ -18,7 +18,7 @@
     "require": {
         "php": "^8.1",
         "spatie/laravel-package-tools": "^1.13.0",
-        "modular-middleware/modular-middleware-multisafepay": "dev-main"
+        "multisafepay/modular-middleware-multisafepay": "dev-main"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
