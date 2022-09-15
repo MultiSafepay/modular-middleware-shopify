@@ -1,20 +1,5 @@
 # A package for modular middleware
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/modular-shopify/modular-middleware-shopify.svg?style=flat-square)](https://packagist.org/packages/modular-shopify/modular-middleware-shopify)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/modular-shopify/modular-middleware-shopify/run-tests?label=tests)](https://github.com/modular-shopify/modular-middleware-shopify/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/modular-shopify/modular-middleware-shopify/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/modular-shopify/modular-middleware-shopify/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/modular-shopify/modular-middleware-shopify.svg?style=flat-square)](https://packagist.org/packages/modular-shopify/modular-middleware-shopify)
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/modular-middleware-shopify.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/modular-middleware-shopify)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Preparation
 
 Please add the following values to your .env
@@ -23,6 +8,7 @@ Please add the following values to your .env
 SHOPIFY_{{GATEWAYID}}_KEY=KEY
 SHOPIFY_{{GATEWAYID}}_SECRET=SECRET
 ```
+
 ## Installation
 
 You can install the package via composer:
@@ -34,40 +20,30 @@ composer require modular-shopify/modular-middleware-shopify
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="modular-middleware-shopify-migrations"
+php artisan vendor:publish --tag="modular-middleware"
 php artisan migrate
 ```
+## Finialize
 
-You can publish the config file with:
-
+You must add the providers into config/app.php
 ```bash
-php artisan vendor:publish --tag="modular-middleware-shopify-config"
+\ModularShopify\ModularShopify\ModularShopifyServiceProvider::class,
+Laravel\Socialite\SocialiteServiceProvider::class,
+\SocialiteProviders\Manager\ServiceProvider::class,
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
+Also add the event listener for socialite in Providers/EventServiceProvider.php
 ```bash
-php artisan vendor:publish --tag="modular-middleware-shopify-views"
-```
-
-## Usage
-
-```php
-$modularShopify = new ModularShopify\ModularShopify();
-echo $modularShopify->echoPhrase('Hello, ModularShopify!');
-```
-
-## Testing
-
-```bash
-composer test
+    /**
+     * The event to listener mappings for the application.
+     *
+     * @var array<class-string, array<int, class-string>>
+     */
+    protected $listen = [
+        SocialiteWasCalled::class => [
+            'SocialiteProviders\\Shopify\\ShopifyExtendSocialite@handle',
+        ],
+    ];
 ```
 
 ## Changelog
