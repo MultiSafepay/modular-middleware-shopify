@@ -34,6 +34,14 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
                 'nice' => 0,
             ]
         );
+        
+        Config::set('services.shopify',
+        [
+            'enabled' => env('SHOPIFY_ENABLED', false),
+            'client_id' => env('SHOPIFY_KEY'),
+            'client_secret' => env('SHOPIFY_SECRET'),
+            'redirect' => env('SHOPIFY_REDIRECT')
+        ]);
     }
 
     public function configurePackage(Package $package): void
