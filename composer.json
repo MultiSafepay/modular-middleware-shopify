@@ -1,12 +1,12 @@
 {
-    "name": "modular-middleware/modular-middleware-shopify",
+    "name": "multisafepay/modular-middleware-shopify",
     "description": "A package for modular middleware",
     "keywords": [
         "modular-shopify",
         "laravel",
         "modular-middleware-shopify"
     ],
-    "homepage": "https://github.com/modular-shopify/modular-middleware-shopify",
+    "homepage": "https://github.com/multisafepay/modular-middleware-shopify",
     "license": "MIT",
     "authors": [
         {
