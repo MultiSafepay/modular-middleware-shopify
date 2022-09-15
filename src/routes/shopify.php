@@ -21,7 +21,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 Route::group([
     'prefix' => 'shopify',
     'as' => 'shopify.',
-    'middleware' => [SubstituteBindings::class, 'web']
+    'middleware' => [SubstituteBindings::class, VerifyCsrfToken::class, 'web']
 ], function () {
 
     Route::middleware([VerifyShopifyRequest::class])->group(function () {
