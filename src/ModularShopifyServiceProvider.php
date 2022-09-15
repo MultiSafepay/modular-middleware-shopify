@@ -23,7 +23,7 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
             'horizon.defaults.supervisor-shopify',
             [
                 'connection' => 'redis',
-                'queue' => ['default','shopify-high','shopify-low'],
+                'queue' => ['default','shopify-high','shopify-low,refunds'],
                 'balance' => 'auto',
                 'maxProcesses' => 2,
                 'maxTime' => 0,
