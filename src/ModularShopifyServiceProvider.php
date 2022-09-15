@@ -34,7 +34,7 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
                 'nice' => 0,
             ]
         );
-        
+
         Config::set('services.shopify',
         [
             'enabled' => env('SHOPIFY_ENABLED', false),
