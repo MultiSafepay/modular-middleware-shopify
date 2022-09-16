@@ -63,9 +63,11 @@ class VerifyShopifyRequest
 
         //Create data string for the remaining url parameters
         $dataString = self::buildQueryString($data);
-        $clientSecret = 'SHOPIFY_' . strtoupper($request->query('gateway')) . '_SECRET';
+        $clientSecret = 'shopify.' . strtolower($request->get('gateway')) . '.secret';
 
-        $realHmac = hash_hmac('sha256', $dataString, env($clientSecret));
+        Log::info('GATEWAY',[$clientSecret,config($clientSecret)]);
+
+        $realHmac = hash_hmac('sha256', $dataString, config($clientSecret));
 
         //hash the values before comparing (to prevent time attack)
         return md5($realHmac) === md5($hmac);

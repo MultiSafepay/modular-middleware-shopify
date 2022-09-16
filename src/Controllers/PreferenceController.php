@@ -101,7 +101,7 @@ class PreferenceController extends Controller
         Log::info('received preference view request - obtained shop',
             ['event' => 'preference_save_shop', 'domain' => $subdomain]);
 
-        if ($multiSafepay->verifyApiKey($apiKey)) {
+        if ($multiSafepay->VerifyApiKey($apiKey)) {
 
             Log::info('updateMultiSafepayEnvironment',
                 ['event' => 'preference_save_update_env', 'domain' => $subdomain]);
