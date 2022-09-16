@@ -45,8 +45,15 @@ class GraphQLCall
 
     private function getAccessToken($gateway): string
     {
-        $token = $this->shop->accessTokens->where('gateway', strtolower($gateway))->first()->shopify_access_token;
-        return $token;
+        $creditcards = ['AMEX','MAESTRO','MASTERCARD','VISA'];
+        $token = $this->shop->accessTokens->where('gateway', strtolower($gateway))->first();
+
+        if (in_array($gateway, $creditcards) && !$token) {
+            $token = $this->shop->accessTokens->where('gateway', 'creditcard')->first();
+        }
+
+
+        return $token->shopify_access_token;
     }
 
     public static function execute(Shopify $shop, string $query, array $variables, $gateway): GraphQLResponse
