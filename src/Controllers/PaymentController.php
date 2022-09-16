@@ -37,7 +37,7 @@ class PaymentController extends Controller
         // We don't support Authorize payment flow
         if ($payment->isAuthorization()) {
             Log::error('Received unsupported authorize payment request for ' . ($domain ?? 'Unknown'), ['event' => 'payment_request']);
-            ShopifyGraphQL::rejectPayment($shop, $request->get('gid'), 'PROCESSING_ERROR', 'We do not support Authorize payment flow');
+            ShopifyGraphQL::rejectPayment($shop, $request->get('gid'), 'PROCESSING_ERROR', 'We do not support Authorize payment flow', $request->query('gateway'));
             return response('', Response::HTTP_NOT_IMPLEMENTED);
         }
 
