@@ -5,7 +5,7 @@ namespace ModularShopify\ModularShopify\Controllers;
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RedirectRequest;
+use ModularShopify\ModularShopify\Requests\RedirectRequest;
 use ModularShopify\ModularShopify\Models\Shopify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
