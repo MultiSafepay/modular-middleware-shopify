@@ -15,7 +15,7 @@ use ModularShopify\ModularShopify\Middleware\ShopifyWebhookValidator;
 use ModularShopify\ModularShopify\Middleware\VerifyMultiSafepayNotification;
 use ModularShopify\ModularShopify\Middleware\VerifyShopifySession;
 use ModularShopify\ModularShopify\Middleware\IpRestricted;
-use App\Http\Middleware\VerifyCsrfToken;
+use ModularShopify\ModularShopify\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 
