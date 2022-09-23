@@ -65,7 +65,10 @@ class VerifyShopifyRequest
         $dataString = self::buildQueryString($data);
         $clientSecret = config('shopify.' . $request->get('gateway') . '.secret');
 
-        Log::info('GATEWAY',[$clientSecret]);
+        Log::info('Verify Gateway',[
+            'gateway' => $request->get('gateway'),
+            's' => $clientSecret
+        ]);
 
         $realHmac = hash_hmac('sha256', $dataString, $clientSecret);
 
