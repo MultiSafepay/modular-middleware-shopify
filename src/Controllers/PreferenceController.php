@@ -101,7 +101,7 @@ class PreferenceController extends Controller
         Log::info('received preference view request - obtained shop',
             ['event' => 'preference_save_shop', 'domain' => $subdomain]);
 
-        if ($multiSafepay->VerifyApiKey($apiKey)) {
+        if ($verify = $multiSafepay->VerifyApiKey($apiKey)) {
 
             Log::info('updateMultiSafepayEnvironment',
                 ['event' => 'preference_save_update_env', 'domain' => $subdomain]);
@@ -125,7 +125,7 @@ class PreferenceController extends Controller
                 'activated' => true
             ]);
 
-            if ($this->enablePaymentApp($subdomain, $request->get('gateway'))) {
+            if ($response = $this->enablePaymentApp($subdomain, $request->get('gateway'))) {
                 // App installation successful, send user back to shopify
                 $redirectUrl = $this->getPaymentAppUrl($subdomain, $request->get('clientKey'));
                 Log::info('Enable app, redirect used',
@@ -136,12 +136,17 @@ class PreferenceController extends Controller
                 ]);
             }
             Log::error('received preference save request - could not enable app',
-                ['event' => 'preference_save_no_enable', 'domain' => $subdomain]);
+                ['event' => 'preference_save_no_enable', 'domain' => $subdomain,
+                    'response' => $response]);
 
             $errors[] = 'Unable to enable payments app';
         } else {
             Log::error('received preference save request - could not verify apikey',
-                ['event' => 'preference_save_no_verify', 'domain' => $subdomain]);
+                [
+                    'event' => 'preference_save_no_verify',
+                    'domain' => $subdomain,
+                    'response' => $verify
+                ]);
             $errors[] = 'Could not verify API key. Are you sure the correct environment is selected?';
         }
 
