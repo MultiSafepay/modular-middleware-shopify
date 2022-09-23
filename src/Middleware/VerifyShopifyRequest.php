@@ -65,9 +65,9 @@ class VerifyShopifyRequest
         $dataString = self::buildQueryString($data);
         $clientSecret = config('shopify.' . $request->get('gateway') . '.key');
 
-        Log::info('GATEWAY',[$clientSecret,config($clientSecret)]);
+        Log::info('GATEWAY',[$clientSecret]);
 
-        $realHmac = hash_hmac('sha256', $dataString, config($clientSecret));
+        $realHmac = hash_hmac('sha256', $dataString, $clientSecret);
 
         //hash the values before comparing (to prevent time attack)
         return md5($realHmac) === md5($hmac);
