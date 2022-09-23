@@ -168,7 +168,7 @@ class PreferenceController extends Controller
                 return true;
             }
 
-            Log::error('received preference save request - could not enable app',
+            Log::info('received preference save request - could not enable app',
                 [
                     'event' => 'preference_save_no_enable_message',
                     'domain' => $subdomain,
