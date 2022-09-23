@@ -20,7 +20,7 @@ class PaymentController extends Controller
      */
     public function __invoke(Request $request, MultiSafepay $multiSafepay)
     {
-        Log::channel('sentry')->info('Received payment request from domain: ' . ($request->header('Shopify-Shop-Domain') ?? 'Unknown'), ['event' => 'payment_request']);
+        Log::info('Received payment request from domain: ' . ($request->header('Shopify-Shop-Domain') ?? 'Unknown'), ['event' => 'payment_request']);
         $domain = $request->header('Shopify-Shop-Domain');
         $shop = Shopify::retrieveByUrl($domain);
 
