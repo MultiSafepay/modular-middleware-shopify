@@ -145,7 +145,8 @@ class PreferenceController extends Controller
                 [
                     'event' => 'preference_save_no_verify',
                     'domain' => $subdomain,
-                    'response' => $verify
+                    'response' => $verify,
+                    'apiKey' => $content['apiKey']
                 ]);
             $errors[] = 'Could not verify API key. Are you sure the correct environment is selected?';
         }
