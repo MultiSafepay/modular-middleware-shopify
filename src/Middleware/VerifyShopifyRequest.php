@@ -63,9 +63,10 @@ class VerifyShopifyRequest
 
         //Create data string for the remaining url parameters
         $dataString = self::buildQueryString($data);
-        $clientSecret = config('shopify.' . $request->get('gateway') . '.secret');
+        $clientSecret = config('shopify.' . strtolower($request->get('gateway')) . '.secret');
 
         Log::info('Verify Gateway',[
+            'config string' => 'shopify.' . strtolower($request->get('gateway')) . '.secret',
             'gateway' => $request->get('gateway'),
             's' => $clientSecret
         ]);
