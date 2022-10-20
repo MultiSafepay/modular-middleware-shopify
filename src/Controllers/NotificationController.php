@@ -18,7 +18,6 @@ class NotificationController extends Controller
 
         if ($request->status !== 'completed') {
             NotificationJob::dispatch($gid, $shop, $order)
-                ->onQueue('shopify-low')
                 ->delay(now()->addHours(2));
 
             Log::info('Dispatching notification for ' . $gid,
@@ -30,8 +29,7 @@ class NotificationController extends Controller
             return response('OK');
         }
 
-        NotificationJob::dispatch($gid, $shop, $order)
-            ->onQueue('shopify-high');
+        NotificationJob::dispatch($gid, $shop, $order);
         Log::info('Dispatching completed notification for ' . $gid,
             [
                 'event' => 'notification_dispatch',
