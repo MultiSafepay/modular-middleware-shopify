@@ -28,7 +28,7 @@ class RefundController extends Controller
         Log::info('Dispatching refund for ' . $request->get('payment_id'), ['event' => 'refund_dispatch', 'refund' => $refund]);
 
         // Cannot resolve before shopify has received a 201, so wait a few seconds.
-        CreateRefundJob::dispatch($refund)->onQueue('refunds')->delay(now()->addSeconds(5));
+        CreateRefundJob::dispatch($refund)->delay(now()->addSeconds(5));
 
         return response('', 201);
     }

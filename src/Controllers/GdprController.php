@@ -49,6 +49,6 @@ class GdprController extends Controller
 
         Log::info('Sending GDPR email', ['event' => 'send_gdpr_email', 'to_email' => $toEmail]);
 
-        SendMailJob::dispatch($toEmail, $mailable)->onQueue('gdpr');
+        SendMailJob::dispatch($toEmail, $mailable);
     }
 }
