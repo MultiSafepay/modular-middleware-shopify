@@ -43,4 +43,9 @@ class Shopify extends Model implements Authenticatable
     {
         return $this->hasMany(ShopifyAccessTokens::class);
     }
+
+    public function Orders()
+    {
+        return $this->hasMany(ShopifyOrders::class);
+    }
 }

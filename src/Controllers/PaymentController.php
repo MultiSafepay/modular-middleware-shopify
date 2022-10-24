@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use ModularShopify\ModularShopify\Models\Shopify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use ModularShopify\ModularShopify\Models\ShopifyOrders;
 use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends Controller
@@ -60,6 +61,16 @@ class PaymentController extends Controller
 
         $paymentUrl = $multiSafepay->createTransaction($shop->multisafepay_api_key, $order);
         // $paymentUrl = $multiSafepayService->createTransaction($shop, $transaction);
+
+        $saveOrder = new ShopifyOrders();
+
+        $days = 10;
+        if ($request->query('gateway') === 'banktrans'){
+            $days = 30;
+        }
+
+        $saveOrder->CreateOrder($shop->id, $payment->getOrderId(), $request->query('gateway'), now()->addDays($days));
+
         Log::info('Finished payment request from store ' . $domain . ' redirecting user to ' . $paymentUrl, ['event' => 'payment_request']);
 
         return response([

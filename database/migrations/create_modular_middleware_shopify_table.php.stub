@@ -27,6 +27,15 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        Schema::create('shopify_orders', function (Blueprint $table) {
+            $table->id();
+            $table->integer('shopify_id');
+            $table->string('order_id');
+            $table->string('gateway');
+            $table->date('expire_date');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -38,5 +47,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('shopifies');
         Schema::dropIfExists('shopify_access_tokens');
+        Schema::dropIfExists('shopify_orders');
     }
 };

@@ -2,15 +2,12 @@
 
 namespace ModularShopify\ModularShopify;
 
-use Illuminate\Routing\Router;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
-use ModularShopify\ModularShopify\Models\Shopify;
+use ModularShopify\ModularShopify\Jobs\KeepOrdersExist;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ModularShopify\ModularShopify\Commands\ModularShopifyCommand;
-
-use function Sodium\add;
 
 class ModularShopifyServiceProvider extends PackageServiceProvider
 {
@@ -23,7 +20,7 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
             'horizon.defaults.supervisor-shopify',
             [
                 'connection' => 'redis',
-                'queue' => ['default','shopify-high','shopify-low,refunds'],
+                'queue' => ['default','shopify-high','shopify-low,refunds','KeepOrdersExist'],
                 'balance' => 'auto',
                 'maxProcesses' => 2,
                 'maxTime' => 0,
@@ -42,6 +39,10 @@ class ModularShopifyServiceProvider extends PackageServiceProvider
             'client_secret' => env('SHOPIFY_SECRET'),
             'redirect' => env('SHOPIFY_REDIRECT')
         ]);
+
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            $schedule->job(new KeepOrdersExist)->name('KeepOrdersExist')->daily();
+        });
     }
 
     public function configurePackage(Package $package): void
