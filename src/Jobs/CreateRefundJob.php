@@ -6,15 +6,14 @@ namespace ModularShopify\ModularShopify\Jobs;
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
 use ModularShopify\ModularShopify\API\Refund;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
-use ModularMultiSafepay\ModularMultiSafepay\Models\Shopify;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-
 use ModularMultiSafepay\ModularMultiSafepay\Refund as MSPRefund;
+use ModularShopify\ModularShopify\Models\Shopify;
 
 class CreateRefundJob implements ShouldQueue
 {
