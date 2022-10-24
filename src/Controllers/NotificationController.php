@@ -29,7 +29,7 @@ class NotificationController extends Controller
             return response('OK');
         }
 
-        NotificationJob::dispatch($gid, $shop, $order);
+        NotificationJob::dispatch($gid, $shop, $order)->delay(now()->addSeconds(10));
         Log::info('Dispatching completed notification for ' . $gid,
             [
                 'event' => 'notification_dispatch',
