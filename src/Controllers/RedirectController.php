@@ -3,6 +3,7 @@
 namespace ModularShopify\ModularShopify\Controllers;
 
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultisafepayClient;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
 use ModularShopify\ModularShopify\Requests\RedirectRequest;
@@ -12,10 +13,11 @@ use Illuminate\Support\Facades\Log;
 
 class RedirectController extends Controller
 {
-    public function __invoke(RedirectRequest $redirectRequest, MultiSafepay $multiSafepay): RedirectResponse
+    public function __invoke(RedirectRequest $redirectRequest): RedirectResponse
     {
         $domain = urldecode($redirectRequest->validated()['domain']);
         $shop = Shopify::retrieveByUrl($domain);
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($shop->multisafepay_environment));
 
         if (!$shop) {
             Log::error('Shop not found', ['domain' => $domain]);

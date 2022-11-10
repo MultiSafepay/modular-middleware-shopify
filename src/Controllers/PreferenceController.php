@@ -3,6 +3,7 @@
 namespace ModularShopify\ModularShopify\Controllers;
 
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultisafepayClient;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use App\Http\Controllers\Controller;
 use ModularShopify\ModularShopify\Models\Shopify;
@@ -87,7 +88,7 @@ class PreferenceController extends Controller
         ]);
     }
 
-    public function save(Request $request, MultiSafepay $multiSafepay)
+    public function save(Request $request)
     {
         Log::channel('sentry')->info('received preference save request', ['event' => 'preference_save']);
         $subdomain = $request->get('shop');
@@ -96,6 +97,8 @@ class PreferenceController extends Controller
 
         $apiKey = trim($content['apiKey']) ?? '';
         $environment = $content['environment'] === 'live' ? 'live' : 'test';
+
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($content['environment']));
         $errors = [];
 
         Log::info('received preference view request - obtained shop',
