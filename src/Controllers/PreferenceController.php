@@ -24,6 +24,7 @@ class PreferenceController extends Controller
     {
         $subdomain = $request->get('shop');
         $shop = Shopify::retrieveByUrl($subdomain);
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($shop->multisafepay_environment));
 
         $gateway = true;
 
