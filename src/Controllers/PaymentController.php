@@ -3,6 +3,7 @@
 namespace ModularShopify\ModularShopify\Controllers;
 
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultisafepayClient;
 use ModularMultiSafepay\ModularMultiSafepay\Order\Data;
 use ModularMultiSafepay\ModularMultiSafepay\Order\Order;
 use ModularShopify\ModularShopify\API\Request\Payment;
@@ -18,12 +19,13 @@ class PaymentController extends Controller
     /**
      * @see https://shopify.dev/apps/payments/processing-a-payment#initiate-the-payment-flow
      */
-    public function __invoke(Request $request, MultiSafepay $multiSafepay)
+    public function __invoke(Request $request)
     {
         Log::info('Received payment request from domain: ' . ($request->header('Shopify-Shop-Domain') ?? 'Unknown'), ['event' => 'payment_request']);
         $domain = $request->header('Shopify-Shop-Domain');
         $shop = Shopify::retrieveByUrl($domain);
 
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($shop->multisafepay_environment));
         $payment = new Payment($request->all(), $domain);
 
         if (!$shop) {

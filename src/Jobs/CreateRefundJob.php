@@ -4,6 +4,7 @@
 namespace ModularShopify\ModularShopify\Jobs;
 
 use ModularMultiSafepay\ModularMultiSafepay\MultiSafepay;
+use ModularMultiSafepay\ModularMultiSafepay\MultisafepayClient;
 use ModularShopify\ModularShopify\API\Refund;
 use ModularShopify\ModularShopify\API\ShopifyGraphQL;
 use Illuminate\Bus\Queueable;
@@ -23,7 +24,7 @@ class CreateRefundJob implements ShouldQueue
     {
     }
 
-    public function handle(MultiSafepay $multiSafepay): void
+    public function handle(): void
     {
         Log::info('Refund job started for ' . $this->refund->getTransactionId() . ' at store ' . $this->refund->getDomain(),
             ['refund' => $this->refund->getRefundGid(),
@@ -32,6 +33,7 @@ class CreateRefundJob implements ShouldQueue
                 'event' => 'refund_job_started',
             ]);
         $shop = Shopify::retrieveByUrl($this->refund->getDomain());
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($shop->multisafepay_environment));
 
         if (!$shop) {
             Log::error('Could not create refund for' . $this->refund->getTransactionId() . ' domain did not a have store in database', ['domain' => $this->refund->getDomain(), 'event' => 'refund_job_no_shop',]);
