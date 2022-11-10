@@ -20,13 +20,16 @@ class PreferenceController extends Controller
         return response()->view('shopify.preference');
     }
 
-    public function get(Request $request, MultiSafepay $multiSafepay): JsonResponse
+    public function get(Request $request): JsonResponse
     {
         $subdomain = $request->get('shop');
         $shop = Shopify::retrieveByUrl($subdomain);
-        $multiSafepay = new MultiSafepay(new MultisafepayClient($shop->multisafepay_environment));
-
         $gateway = true;
+        $env = "test";
+        if ($shop->multisafepay_environment) {
+            $env = $shop->multisafepay_environment;
+        }
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($env));
 
         if ($shop->multisafepay_api_key) {
             $gateway = $multiSafepay->getGateway($shop->multisafepay_api_key, $request->get('gateway'))["success"];
@@ -46,11 +49,17 @@ class PreferenceController extends Controller
         ]);
     }
 
-    public function activate(Request $request, MultiSafepay $multiSafepay): JsonResponse
+    public function activate(Request $request): JsonResponse
     {
         Log::channel('sentry')->info('received preference save request', ['event' => 'preference_save']);
         $subdomain = $request->get('shop');
         $shop = Shopify::retrieveByUrl($subdomain);
+
+        $env = "test";
+        if ($shop->multisafepay_environment) {
+            $env = $shop->multisafepay_environment;
+        }
+        $multiSafepay = new MultiSafepay(new MultisafepayClient($env));
 
         $gateway = $multiSafepay->getGateway($shop->multisafepay_api_key, $request->get('gateway'))["success"];
 
