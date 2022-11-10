@@ -55,7 +55,8 @@ class PaymentController extends Controller
             $payment->getShippingInfo(),
             null,
             null,
-            new Data($domain, $payment->getGid())
+            new Data($domain, $payment->getGid()),
+            3 // 3 days active since shopify only allows us for 3 days to be active
         );
 
         $paymentUrl = $multiSafepay->createTransaction($shop->multisafepay_api_key, $order);

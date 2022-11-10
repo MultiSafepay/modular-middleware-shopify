@@ -16,6 +16,7 @@ class RedirectController extends Controller
     {
         $domain = urldecode($redirectRequest->validated()['domain']);
         $shop = Shopify::retrieveByUrl($domain);
+
         if (!$shop) {
             Log::error('Shop not found', ['domain' => $domain]);
             throw new \Exception('could not find store ' . $domain);
