@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('shopify_domain');
             $table->string('shopify_email');
-            $table->string('shopify_id');
+            $table->string('shopify_id')->index();
             $table->string('multisafepay_api_key')->nullable();
             $table->string('multisafepay_environment')->nullable();
             $table->timestamps();
@@ -20,7 +20,7 @@ return new class extends Migration
         });
         Schema::create('shopify_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->integer('shopify_id');
+            $table->integer('shopify_id')->index();
             $table->string('shopify_access_token');
             $table->string('gateway');
             $table->boolean('activated')->default(false);
